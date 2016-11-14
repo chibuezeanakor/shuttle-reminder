@@ -1,0 +1,24 @@
+<body>
+    <div class="container">
+        <header>
+            <h1>Shuttle Reminder</h1>
+        </header>
+
+        <form class="new-user">Subscription Form
+            <input type="text" name="firstName" placeholder="First Name">
+            <input type="text" name="lastName" placeholder="Last Name">
+            <input type="text" name="phoneNumber" placeholder="Phone No.">
+            <button type="submit">Subscribe!</button>
+        </form>
+        <br />
+        <form class="remove-user">Unsubscribe from Message List
+            <br />
+            <input type="text" name="userNumber" placeholder="Phone No.">
+            <button type="submit">Unsubscribe</button>
+        </form>
+    </div>
+</body>
+
+<template name="user">
+    <li>{{firstName}} {{lastName}} {{phoneNumber}}</li>
+</template>

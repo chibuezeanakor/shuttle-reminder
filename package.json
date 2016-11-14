@@ -1,0 +1,10 @@
+{
+  "name": "shuttle-reminder",
+  "private": true,
+  "scripts": {
+    "start": "meteor run --settings=settings.json"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "~0.2.0"
+  }
+}
