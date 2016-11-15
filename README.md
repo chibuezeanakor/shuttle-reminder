@@ -7,19 +7,22 @@ In order to make this app work, you will need the following components:
 
 You can either clone this repository or enter the following commands via the command line:
 
-```meteor create shuttle-reminder
+~~~
+meteor create shuttle-reminder
 cd shuttle-reminder
-```
+~~~
 
 You will also need access to the Twilio APIs, as well as a task scheduler that will execute code when instructed. In the command line, write the following code:
 
-```meteor add dispatch:twilio
+~~~
+meteor add dispatch:twilio
 meteor add percolate:synced-cron
-```
+~~~
 
 Then, you can use a text editor to create a file named package.json and make it look like this:
 
-```{
+~~~
+{
   "name": "shuttle-reminder",
   "private": true,
   "scripts": {
@@ -29,35 +32,40 @@ Then, you can use a text editor to create a file named package.json and make it 
     "meteor-node-stubs": "~0.2.0"
   }
 }
-```
+~~~
 
 Then, you will need another file called settings.json, which will look like this:
 
-```{
+~~~
+{
   "TWILIO": {
     "FROM": "YOUR_TWILIO_NUMBER",
     "SID": "YOUR_TWILIO_ACCOUNT_SID",
     "TOKEN": "YOUR_TWILIO_AUTH_TOKEN"
   }
-```
+}
+~~~
 
 You will have to replace YOUR_TWILIO_NUMBER with your actual Twilio number (formated in "+1xxxxxxxxxx"), YOUR_TWILIO_ACCOUNT_SID with your Twilio Account SID, and YOUR_TWILIO_AUTH_TOKEN with your Twilio Auth Token. This will allow your app to access the Twilio API on your behalf.
 
 After you have that done, you can create three folders, which are named client, server, and imports. In the imports folder, you will need to create two more folders, named api and ui. In the api folder, create a file named users.js and add this code to it:
 
-```import {Mongo} from 'meteor/mongo';
+~~~
+import {Mongo} from 'meteor/mongo';
 export const Users = new Mongo.Collection('users');
-```
+~~~
 
 In order for the server to have access to the Users collection, let's go to the server folder and create a file named main.js. Then, add this code to the file:
 
-```import { Meteor } from 'meteor/meteor';
+~~~
+import { Meteor } from 'meteor/meteor';
 import '../imports/api/users.js'
-```
+~~~
 
 The client-side of the app needs to be able to access the Users collection instead of a static array, so in the ui folder of the imports folder, create a file named body.js, and make it look like this:
 
-```import {Template} from 'meteor/templating';
+~~~
+import {Template} from 'meteor/templating';
 
 import {Users} from '../api/users.js';
 
@@ -66,11 +74,12 @@ Template.body.helpers({
         return Users.find({});
     },
 });
-```
+~~~
 
 We will also need to create a user interface for this app, so in the ui folder, create another file named body.html, and use the following code:
 
-```<body>
+~~~
+<body>
     <div class="container">
         <header>
             <h1>Shuttle Reminder</h1>
@@ -89,7 +98,7 @@ We will also need to create a user interface for this app, so in the ui folder, 
         </form>
     </div>
 </body>
-```
+~~~
 
 Now that we've got our UI, let's put the fields (in the "name" section of each input) to good use! In the body.js file of the ui folder, type in the following code:
 
@@ -142,7 +151,8 @@ Template.body.events({
 
 You will need to go back to the main.js file of the server folder and set up the Twilio client using the values that you had defined in settings.json. You might also want to create a method that will send an SMS using the Twilio client. To do these things, append this code to main.js:
 
-```var twilioClient = new Twilio({
+~~~
+var twilioClient = new Twilio({
   from: Meteor.settings.TWILIO.FROM,
   sid: Meteor.settings.TWILIO.SID,
   token: Meteor.settings.TWILIO.TOKEN
@@ -163,11 +173,12 @@ Meteor.methods({
     });
       },
 })
-```
+~~~
 
 Do you remember synced-cron? Good, because this is the time where we get to use it. It will execute a cron job at a time and frequency that we specify, which is very important for an application such as this one to work. This cron job will send the SMS defined in the sendSMS function above. Add this code to main.js in the server folder:
 
-```Meteor.startup(function() {
+~~~
+Meteor.startup(function() {
   // code to run on server at startup
   SyncedCron.options = {
     log: true,
@@ -185,7 +196,7 @@ Do you remember synced-cron? Good, because this is the time where we get to use 
   });
   SyncedCron.start();
 })
-```
+~~~
 
 We're done! Once you've saved all of your code, run this command in the command line to run your project:
 `npm start`
