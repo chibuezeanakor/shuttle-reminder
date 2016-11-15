@@ -1,5 +1,3 @@
-"A simple daily reminder app that uses Meteor and Twilio." 
-=======
 # shuttle-reminder
 In order to make this app work, you will need the following components:
 * [Meteor] (https://www.meteor.com/install)
