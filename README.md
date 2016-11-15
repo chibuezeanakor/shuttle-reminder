@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "A simple daily reminder app that uses Meteor and Twilio." 
 =======
 # shuttle-reminder
@@ -94,7 +93,8 @@ We will also need to create a user interface for this app, so in the ui folder, 
 
 Now that we've got our UI, let's put the fields (in the "name" section of each input) to good use! In the body.js file of the ui folder, type in the following code:
 
-```Template.body.events({
+~~~
+Template.body.events({
     'submit .new-user': function(event) {
         // Prevent default browser form submit
         event.preventDefault();
@@ -138,7 +138,7 @@ Now that we've got our UI, let's put the fields (in the "name" section of each i
 
     
 })
-```
+~~~
 
 You will need to go back to the main.js file of the server folder and set up the Twilio client using the values that you had defined in settings.json. You might also want to create a method that will send an SMS using the Twilio client. To do these things, append this code to main.js:
 
