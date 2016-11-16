@@ -1,4 +1,6 @@
 # shuttle-reminder
+
+### A simple application that uses the Twilio API and Meteor to send daily SMS reminders
 In order to make this app work, you will need the following components:
 * [Meteor] (https://www.meteor.com/install)
 * A [Twilio] (https://www.twilio.com/) account
